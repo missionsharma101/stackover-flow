@@ -24,4 +24,25 @@ class BaseModel(models.Model):
     class Meta:
         abstract = True
 
+class Question(BaseModel):
+    name=models.CharField(max_length=255)
+    tag=models.CharField(max_length=100)
+    upvote=models.IntegerField(blank=True ,null=True)
+    downvote=models.IntegerField(blank=True,null=True)
 
+    def __str__(self) -> str:
+        return self.created_by.username +"/ "+ self.name[0:20]
+
+class Answer(BaseModel):
+    question=models.ForeignKey(Question,on_delete=models.CASCADE)
+    name=models.TextField()
+    upvote=models.IntegerField(null=True,blank=True)
+    downvote=models.IntegerField(null=True,blank=True)
+    def __str__(self) -> str:
+        return self.question.name +"/"+ self.name[0:20]
+
+class Reply(BaseModel):
+    answer=models.ForeignKey(Answer,on_delete=models.CASCADE)
+    name=models.TextField()
+    def __str__(self) -> str:
+        return self.answer.name[0:20] + "/" +self.name[0:20]
