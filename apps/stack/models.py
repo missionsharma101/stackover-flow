@@ -7,9 +7,9 @@ class User(AbstractUser):
     username = models.CharField(max_length=50, unique=True)
     fullname = models.CharField(max_length=50)
     email = models.EmailField(max_length=50, unique=True)
-    address=models.CharField(max_length=30)
+    address = models.CharField(max_length=30)
     phone = models.CharField(max_length=15)
-    image = models.FileField(upload_to= 'uploads/%Y/%m/%d',null=True)
+    image = models.FileField(upload_to='uploads/%Y/%m/%d', null=True)
     create_at = models.DateField(auto_now_add=True, null=True)
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['username']
@@ -19,30 +19,36 @@ class User(AbstractUser):
 
 
 class BaseModel(models.Model):
-    created_at=models.DateField(auto_now_add=True)
-    created_by=models.ForeignKey(User,on_delete=models.CASCADE)
+    created_at = models.DateField(auto_now_add=True)
+    created_by = models.ForeignKey(User, on_delete=models.CASCADE)
+
     class Meta:
         abstract = True
 
+
 class Question(BaseModel):
-    name=models.CharField(max_length=255)
-    tag=models.CharField(max_length=100)
-    upvote=models.IntegerField(blank=True ,null=True)
-    downvote=models.IntegerField(blank=True,null=True)
+    name = models.CharField(max_length=255)
+    tag = models.CharField(max_length=100)
+    upvote = models.IntegerField(blank=True, null=True)
+    downvote = models.IntegerField(blank=True, null=True)
 
     def __str__(self) -> str:
-        return self.created_by.username +"/ "+ self.name[0:20]
+        return self.created_by.username + "/ " + self.name[0:20]
+
 
 class Answer(BaseModel):
-    question=models.ForeignKey(Question,on_delete=models.CASCADE)
-    name=models.TextField()
-    upvote=models.IntegerField(null=True,blank=True)
-    downvote=models.IntegerField(null=True,blank=True)
+    question = models.ForeignKey(Question, on_delete=models.CASCADE)
+    name = models.TextField()
+    upvote = models.IntegerField(null=True, blank=True)
+    downvote = models.IntegerField(null=True, blank=True)
+
     def __str__(self) -> str:
-        return self.question.name +"/"+ self.name[0:20]
+        return self.question.name[0:20] + "/" + self.name[0:20]
+
 
 class Reply(BaseModel):
-    answer=models.ForeignKey(Answer,on_delete=models.CASCADE)
-    name=models.TextField()
+    answer = models.ForeignKey(Answer, on_delete=models.CASCADE)
+    name = models.TextField()
+
     def __str__(self) -> str:
-        return self.answer.name[0:20] + "/" +self.name[0:20]
+        return self.answer.name[0:20] + "/" + self.name[0:20]
