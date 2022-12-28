@@ -1,0 +1,29 @@
+{% extends "base.html"%}
+
+{% load static %}
+
+{% block body_content %}
+{% for enquiry in enquires %}
+<style>
+	.profile-pic{
+		max-width: 60px;
+		max-height:70px;
+		margin: 0 auto;
+		border-radius: 50%;
+	}
+</style>
+<div class="card m-5">
+    <div class="card-header">
+      <a href="{% url 'stack:addanswer' %}">{{enquiry.name}}</a>
+    </div>
+    <div class="card-body">
+      <blockquote class="blockquote mb-0">
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
+        <footer class="blockquote-footer">{{enquiry.created_by}} <cite title="Source Title">{{enquiry.created_at|timesince}}</cite></footer>
+        <img class="profile-pic" src="{{user.image.url}}" >
+      </blockquote>
+    </div>
+  </div>
+{% endfor %}
+
+{% endblock %}

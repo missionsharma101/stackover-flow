@@ -10,7 +10,7 @@ class User(AbstractUser):
     address = models.CharField(max_length=30)
     phone = models.CharField(max_length=15)
     image = models.FileField(upload_to='uploads/%Y/%m/%d', null=True)
-    create_at = models.DateField(auto_now_add=True, null=True)
+    create_at = models.DateTimeField(auto_now_add=True, null=True)
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['username']
 
@@ -19,7 +19,7 @@ class User(AbstractUser):
 
 
 class BaseModel(models.Model):
-    created_at = models.DateField(auto_now_add=True)
+    created_at = models.DateTimeField(auto_now_add=True)
     created_by = models.ForeignKey(User, on_delete=models.CASCADE)
 
     class Meta:
