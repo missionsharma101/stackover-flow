@@ -3,6 +3,10 @@
 {% load static %}
 
 {% block body_content %}
+
+
+
+
 {% for enquiry in enquires %}
 <style>
 	.profile-pic{
@@ -12,18 +16,21 @@
 		border-radius: 50%;
 	}
 </style>
-<div class="card m-5">
+<div class="card " style="background-color: #F2F2F2; margin-top: 2%;margin-right: 7% ;margin-left: 7%;">
     <div class="card-header">
-      <a href="{% url 'stack:addanswer' %}">{{enquiry.name}}</a>
+      <a href="{% url 'stack:addanswer' enquiry.id %}" style="text-decoration: none;  color:#6777ef ;;">{{enquiry.name}}</a>
+      
     </div>
-    <div class="card-body">
+    <div class="card-body ">
       <blockquote class="blockquote mb-0">
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
+        <p>{{enquiry.description}}</p>
         <footer class="blockquote-footer">{{enquiry.created_by}} <cite title="Source Title">{{enquiry.created_at|timesince}}</cite></footer>
-        <img class="profile-pic" src="{{user.image.url}}" >
+        <img class="profile-pic" src="{{enquiry.created_by.image.url}}" >
       </blockquote>
     </div>
   </div>
 {% endfor %}
+
+
 
 {% endblock %}

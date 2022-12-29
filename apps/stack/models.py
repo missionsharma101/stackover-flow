@@ -28,6 +28,7 @@ class BaseModel(models.Model):
 
 class Question(BaseModel):
     name = models.CharField(max_length=255)
+    description=models.TextField(null=True)
     tag = models.CharField(max_length=100)
     upvote = models.IntegerField(blank=True, null=True)
     downvote = models.IntegerField(blank=True, null=True)

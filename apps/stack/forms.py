@@ -11,9 +11,14 @@ class UserForm(UserCreationForm):
 class QuestionForm(forms.ModelForm):
     class Meta:
         model = Question
-        fields=["name","tag"]
+        fields=["name","description","tag"]
 
 class AnswerForm(forms.ModelForm):
     class Meta:
         model = Answer
-        fields=["name"]
+        fields=["name",]
+
+class ReplyForm(forms.ModelForm):
+    class Meta:
+        model = Reply
+        fields=["name",]        

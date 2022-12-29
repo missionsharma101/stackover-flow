@@ -4,20 +4,12 @@
 
 {% block body_content %}
 {% load crispy_forms_tags %}
-{{questions.name}}
-<br>
-{% for comment in questions.answer_set.all %}
-
-{{comment.name}} <br>
-<a href="{url 'stack:reply' comment.id}">Reply</a>
-
-{% endfor %}
 <br>
 <section class="ftco-section">
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-6 text-center mb-5">
-                <h2 class="heading-section">Signin</h2>
+                <h2 class="heading-section">Reply</h2>
             </div>
         </div>
         <div class="row justify-content-center">
@@ -32,12 +24,12 @@
                             {{ form|crispy }}
                <br>
                 <div class="form-group">
-                    <button type="submit" class="form-control btn1  submit px-1">Add Question</button>
+                    <button type="submit" class="form-control btn1  submit px-1">Reply</button>
                 </div>
                 
               </form>
               <br>
-
+            
             </div>
           </div>
             </div>

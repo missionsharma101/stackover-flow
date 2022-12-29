@@ -10,6 +10,7 @@ urlpatterns = [
     path("logout",get_logout,name="logout"),
 
     path("addquestion",get_question,name="addquestion"),
-    path("addanswer",get_answer,name="addanswer"),
+    path("addanswer/<int:pk>",get_answer,name="addanswer"),
+    path("reply/<int:pk>",get_reply,name="reply")
 
 ]

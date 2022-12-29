@@ -1,3 +1,4 @@
+from django.http import JsonResponse
 from django.shortcuts import render,redirect
 from .forms import *
 from django.contrib import messages
@@ -71,18 +72,45 @@ def get_question(request):
     return render(request,"pages/question.html",context) 
 
 
-def get_answer(request):
+def get_answer(request,pk):
+    questions=Question.objects.get(id=pk)
+
     if request.method=="POST":
         form=AnswerForm(request.POST)
         form.is_valid()
         data=form.save(commit=False)
         data.created_by=request.user
+        data.question=questions
+
         form.save()
-        messages.success(request, "Question Added successfully")
-        return redirect("/")
+        messages.success(request, "Answer Added successfully")
+        return redirect('/')
     else:
         form=AnswerForm()
     context={
-        "form":form
+        "form":form,
+        'questions':questions,
+
     }  
     return render(request,"pages/answer.html",context)
+
+def get_reply(request,pk):
+    answers=Answer.objects.get(id=pk)
+    if request.method=="POST":
+        form=ReplyForm(request.POST)
+        form.is_valid()
+        data=form.save(commit=False)
+        data.created_by=request.user
+        form.save()
+        messages.success(request, "Reply Added successfully")
+        return redirect('/')
+    else:
+        form=AnswerForm()
+    context={
+        "form":form,
+        'answers':answers
+    }  
+    return render(request,"pages/reply.html",context)
+
+
+
